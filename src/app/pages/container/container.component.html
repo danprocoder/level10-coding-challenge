@@ -9,5 +9,9 @@
     <div>
       <a [routerLink]="'/department/' + department.id">{{department.name}}</a>
     </div>
+    <div>
+      Total Allocation
+      <b>{{department.totalAllocation | currency:'USD'}}</b>
+    </div>
   </app-card>
 </div>

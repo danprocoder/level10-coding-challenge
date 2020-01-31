@@ -2,12 +2,17 @@
   <h2>{{department.name}} Department</h2>
 
   <div>
-    <select [(ngModel)]="selectedEmployee">
-      <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
-    </select>
-
-    <button (click)="addEmployee()">Add</button>
+    Total Allocation
+    <b>{{department.totalAllocation | currency:'USD'}}</b>
   </div>
+</div>
+
+<div>
+  <select [(ngModel)]="selectedEmployee">
+    <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
+  </select>
+
+  <button (click)="addEmployee()">Add</button>
 </div>
 
 <div>

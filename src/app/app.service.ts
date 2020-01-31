@@ -12,6 +12,7 @@ interface Department {
   id: number;
   name: string;
   managerId?: number;
+  totalAllocation?: number;
 }
 
 interface DepartmentEmployee {
@@ -50,7 +51,8 @@ export class AppService {
   addDepartment(name: string): Observable<Department> {
     const department = {
       id: Math.floor(Math.random() * 100000000),
-      name
+      name,
+      totalAllocation: 0
     };
     this.departments.push(department);
 
@@ -79,6 +81,12 @@ export class AppService {
     const employee = this.employees.find(item => item.id === +employeeId);
 
     this.departmentsEmployees.push({ departmentId, employee });
+
+    const totalAllocation = this.departmentsEmployees.reduce((total, current) => {
+      return total + current.employee.allocation;
+    }, 0);
+
+    this.departments.find(item => item.id === departmentId).totalAllocation = totalAllocation;
 
     return of(employee);
   }
