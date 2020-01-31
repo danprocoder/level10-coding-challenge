@@ -1,0 +1,13 @@
+<div>
+  Add Department
+  <input type="text" placeholder="Enter department name" [(ngModel)]="departmentName" />
+  <button (click)="addDepartment()">Add</button>
+</div>
+
+<div>
+  <app-card *ngFor="let department of departments;">
+    <div>
+      <a [routerLink]="'/department/' + department.id">{{department.name}}</a>
+    </div>
+  </app-card>
+</div>

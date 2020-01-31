@@ -1,0 +1,20 @@
+<div *ngIf="department">
+  <h2>{{department.name}} Department</h2>
+</div>
+
+<div>
+  <table>
+    <thead>
+      <th>#</th>
+      <th>Name</th>
+      <th>Allocation</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let employee of employees">
+        <td>1</td>
+        <td>{{employee.name}}</td>
+        <td>{{employee.allocation | currency:'USD'}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
