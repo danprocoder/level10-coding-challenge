@@ -6,6 +6,13 @@ interface Employee {
   name: string;
   position: string;
   allocation: number;
+  managerId?: number;
+}
+
+interface EmployeeManager {
+  departmentId: number;
+  employee: Employee;
+  manager: Employee;
 }
 
 interface Department {
@@ -34,6 +41,7 @@ export class AppService {
   departments: Department[] = [];
   employees: Employee[] = [];
   departmentsEmployees: DepartmentEmployee[] = [];
+  employeeManagers: EmployeeManager[] = [];
 
   constructor() { }
 
@@ -63,13 +71,19 @@ export class AppService {
     return of([...this.departments]);
   }
 
+  getDepartmentManagers(departmentId: number): Observable<EmployeeManager[]> {
+    return of(
+      this.employeeManagers.filter(item => item.departmentId === departmentId)
+    );
+  }
+
   getDepartmentById(id: number): Observable<Department> {
     return of(
       this.departments.find(item => item.id === id)
     );
   }
 
-  getEmployeesByDepartment(departmentId: number): Observable<Employee[]> {
+  getEmployeesByDepartment(departmentId: number, managerId?: number): Observable<Employee[]> {
     return of(
       this.departmentsEmployees
         .filter(item => item.departmentId === departmentId)
@@ -77,7 +91,7 @@ export class AppService {
     );
   }
 
-  addEmployeeToDepartment(departmentId: number, employeeId: number): Observable<Employee> {
+  addEmployeeToDepartment(departmentId: number, employeeId: number, managerId: number): Observable<any> {
     const employee = this.employees.find(item => item.id === +employeeId);
 
     this.departmentsEmployees.push({ departmentId, employee });
@@ -86,9 +100,23 @@ export class AppService {
       return total + current.employee.allocation;
     }, 0);
 
-    this.departments.find(item => item.id === departmentId).totalAllocation = totalAllocation;
+    this.departments.find(item => item.id === +departmentId).totalAllocation = totalAllocation;
 
-    return of(employee);
+    const employeeManager = managerId
+    ? {
+        departmentId,
+        employee,
+        manager: this.employees.find(item => item.id === +managerId)
+      }
+    : null;
+    if (employeeManager) {
+      this.employeeManagers.push(employeeManager);
+    }
+
+    return of({
+      employee,
+      departmentManager: employeeManager
+    });
   }
 
   getEmployees(): Observable<Employee[]> {

@@ -1,10 +1,12 @@
 <div>
   <input type="text" placeholder="Employee name" [(ngModel)]="name" />
+
   <select [(ngModel)]="position">
     <option value="developer">Developer</option>
     <option value="qa-tester">QA Tester</option>
     <option value="manager">Manager</option>
   </select>
+
   <button (click)="addEmployee()">Add</button>
 </div>
 
@@ -17,7 +19,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let employee of employees">
-        <td>1</td>
+        <td>{{employees.indexOf(employee) + 1}}</td>
         <td>{{employee.name}}</td>
         <td>{{employee.allocation | currency:'USD'}}</td>
       </tr>

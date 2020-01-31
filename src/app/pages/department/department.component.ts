@@ -14,9 +14,11 @@ export class DepartmentComponent implements OnInit {
   department: any;
 
   selectedEmployee: number;
+  selectedManager: number;
 
-  employees: any = [];
-  allEmployees: any = [];
+  employees: any[] = [];
+  allEmployees: any[] = [];
+  departmentManagers: any[] = [];
 
   constructor(
     private service: AppService,
@@ -40,13 +42,31 @@ export class DepartmentComponent implements OnInit {
       .subscribe(data => {
         this.employees = data;
       });
+
+    this.service.getDepartmentManagers(this.departmentId)
+      .subscribe(departmentManagers => {
+        this.departmentManagers = departmentManagers;
+      });
+  }
+
+  getManagers() {
+    return this.employees.filter(item => item.position === 'manager');
   }
 
   addEmployee() {
-    this.service.addEmployeeToDepartment(this.departmentId, this.selectedEmployee)
-      .subscribe(data => {
-        this.employees.unshift(data);
-      });
+    this.service.addEmployeeToDepartment(
+      this.departmentId,
+      this.selectedEmployee,
+      this.selectedManager
+    ).subscribe((data: any) => {
+      this.employees.unshift(data.employee);
+      this.departmentManagers.push(data.departmentManager);
+    });
+  }
+
+  getEmployeeManager(empId) {
+    const data = this.departmentManagers.find(item => item && item.employee.id === empId);
+    return data ? data.manager : null;
   }
 
 }

@@ -12,6 +12,10 @@
     <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
   </select>
 
+  <select [(ngModel)]="selectedManager">
+    <option *ngFor="let manager of getManagers()" [value]="manager.id">{{manager.name}}</option>
+  </select>
+
   <button (click)="addEmployee()">Add</button>
 </div>
 
@@ -20,12 +24,14 @@
     <thead>
       <th>#</th>
       <th>Name</th>
+      <th>Reports To</th>
       <th>Allocation</th>
     </thead>
     <tbody>
       <tr *ngFor="let employee of employees">
         <td>1</td>
         <td>{{employee.name}}</td>
+        <td>{{getEmployeeManager(employee.id)?.name || 'Unassigned'}}</td>
         <td>{{employee.allocation | currency:'USD'}}</td>
       </tr>
     </tbody>
