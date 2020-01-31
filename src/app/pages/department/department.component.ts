@@ -13,7 +13,10 @@ export class DepartmentComponent implements OnInit {
 
   department: any;
 
+  selectedEmployee: number;
+
   employees: any = [];
+  allEmployees: any = [];
 
   constructor(
     private service: AppService,
@@ -28,9 +31,21 @@ export class DepartmentComponent implements OnInit {
         this.department = data;
       });
 
+    this.service.getEmployees()
+      .subscribe(data => {
+        this.allEmployees = data;
+      });
+
     this.service.getEmployeesByDepartment(this.departmentId)
       .subscribe(data => {
         this.employees = data;
+      });
+  }
+
+  addEmployee() {
+    this.service.addEmployeeToDepartment(this.departmentId, this.selectedEmployee)
+      .subscribe(data => {
+        this.employees.unshift(data);
       });
   }
 

@@ -14,6 +14,11 @@ interface Department {
   managerId?: number;
 }
 
+interface DepartmentEmployee {
+  departmentId: number;
+  employee: Employee;
+}
+
 const ALLOCATIONS = {
   developer: 1000,
   'qa-tester': 5000,
@@ -27,6 +32,7 @@ export class AppService {
 
   departments: Department[] = [];
   employees: Employee[] = [];
+  departmentsEmployees: DepartmentEmployee[] = [];
 
   constructor() { }
 
@@ -63,10 +69,18 @@ export class AppService {
 
   getEmployeesByDepartment(departmentId: number): Observable<Employee[]> {
     return of(
-      this.employees.filter(
-        (employee: Employee) => true
-      )
+      this.departmentsEmployees
+        .filter(item => item.departmentId === departmentId)
+        .map(item => item.employee)
     );
+  }
+
+  addEmployeeToDepartment(departmentId: number, employeeId: number): Observable<Employee> {
+    const employee = this.employees.find(item => item.id === +employeeId);
+
+    this.departmentsEmployees.push({ departmentId, employee });
+
+    return of(employee);
   }
 
   getEmployees(): Observable<Employee[]> {

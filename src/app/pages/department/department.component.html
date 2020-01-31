@@ -1,5 +1,13 @@
 <div *ngIf="department">
   <h2>{{department.name}} Department</h2>
+
+  <div>
+    <select [(ngModel)]="selectedEmployee">
+      <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
+    </select>
+
+    <button (click)="addEmployee()">Add</button>
+  </div>
 </div>
 
 <div>
