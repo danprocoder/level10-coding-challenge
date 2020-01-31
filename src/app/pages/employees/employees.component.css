@@ -1,0 +1,16 @@
+.employee-form {
+    display: flex;
+    margin-top: 40px;
+}
+
+.employee-form > div {
+    margin-right: 20px;
+}
+
+.employee-form > div select {
+    width: 120px;
+}
+
+.table-container {
+    margin-top: 40px;
+}

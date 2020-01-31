@@ -1,1 +1,33 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: #1D2128;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    width: 100%;
+}
+
+table th {
+    text-align: left;
+}
+
+
+button {
+    background: #4267B2;
+    border: none;
+    border-radius: 2px;
+    color: #ffffff;
+    padding: 8px 18px;
+    font-weight: bold;
+}
+
+.text-hint {
+    color: #92969D;
+}

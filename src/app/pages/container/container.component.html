@@ -1,17 +1,17 @@
-<div>
+<div class="department">
   Add Department
   <input type="text" placeholder="Enter department name" [(ngModel)]="departmentName" />
   <button (click)="addDepartment()">Add</button>
 </div>
 
-<div>
+<div class="department-container">
   <app-card *ngFor="let department of departments;">
     <div>
       <a [routerLink]="'/department/' + department.id">{{department.name}}</a>
     </div>
-    <div>
-      Total Allocation
-      <b>{{department.totalAllocation | currency:'USD'}}</b>
+    <div class="amount-section">
+      <div class="text-hint">Total Expense Allocation</div>
+      <div class="amount">{{department.totalAllocation | currency:'USD'}}</div>
     </div>
   </app-card>
 </div>

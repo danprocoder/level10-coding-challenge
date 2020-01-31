@@ -7,32 +7,38 @@
   </div>
 </div>
 
-<div>
-  <select [(ngModel)]="selectedEmployee">
-    <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
-  </select>
+<div class="employee-form">
+  <div>
+    <label for="employee-select">Employee</label><br/>
+    <select id="employee-select" [(ngModel)]="selectedEmployee">
+      <option *ngFor="let employee of allEmployees" [value]="employee.id">{{employee.name}}</option>
+    </select>
+  </div>
 
-  <select [(ngModel)]="selectedManager">
-    <option *ngFor="let manager of getManagers()" [value]="manager.id">{{manager.name}}</option>
-  </select>
+  <div>
+    <label for="reports-to">Reports To</label><br/>
+    <select id="reports-to" [(ngModel)]="selectedManager">
+      <option *ngFor="let manager of getManagers()" [value]="manager.id">{{manager.name}}</option>
+    </select>
+  </div>
 
   <button (click)="addEmployee()">Add</button>
 </div>
 
-<div>
+<div class="table-container">
   <table>
     <thead>
       <th>#</th>
       <th>Name</th>
       <th>Reports To</th>
-      <th>Allocation</th>
+      <th>Expense Allocation</th>
     </thead>
     <tbody>
       <tr *ngFor="let employee of employees">
-        <td>1</td>
+        <td>{{employees.indexOf(employee) + 1}}</td>
         <td>{{employee.name}}</td>
         <td>{{getEmployeeManager(employee.id)?.name || 'Unassigned'}}</td>
-        <td>{{employee.allocation | currency:'USD'}}</td>
+        <td>{{getAllocation(employee) | currency:'USD'}}</td>
       </tr>
     </tbody>
   </table>

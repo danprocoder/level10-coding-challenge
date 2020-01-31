@@ -1,0 +1,22 @@
+.department {
+    margin-top: 40px;
+}
+
+.department-container {
+    display: flex;
+    margin-top: 40px;
+}
+
+.department-container app-card {
+    padding: 20px;
+    margin-right: 20px;
+}
+
+.amount-section {
+    margin-top: 20px;
+}
+
+.department-container app-card .amount {
+    font-size: 18px;
+    font-weight: bold;
+}

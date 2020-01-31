@@ -1,21 +1,28 @@
-<div>
-  <input type="text" placeholder="Employee name" [(ngModel)]="name" />
+<div class="employee-form">
 
-  <select [(ngModel)]="position">
-    <option value="developer">Developer</option>
-    <option value="qa-tester">QA Tester</option>
-    <option value="manager">Manager</option>
-  </select>
+  <div>
+    <label>Employee Name</label><br/>
+    <input type="text" placeholder="Employee name" [(ngModel)]="name" />
+  </div>
+
+  <div>
+    <label>Position</label><br/>
+    <select [(ngModel)]="position">
+      <option value="developer">Developer</option>
+      <option value="qa-tester">QA Tester</option>
+      <option value="manager">Manager</option>
+    </select>
+  </div>
 
   <button (click)="addEmployee()">Add</button>
 </div>
 
-<div>
+<div class="table-container">
   <table>
     <thead>
       <th>#</th>
       <th>Name</th>
-      <th>Allocation</th>
+      <th>Expense Allocation</th>
     </thead>
     <tbody>
       <tr *ngFor="let employee of employees">
